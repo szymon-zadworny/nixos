@@ -45,7 +45,7 @@
     fastfetch
     pfetch
     blackbox-terminal
-    fragments
+    transmission_4-gtk
 
     radare2
     ghidra-bin
