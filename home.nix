@@ -63,6 +63,7 @@
 
     wineWow64Packages.stagingFull
     lutris
+    bottles
     (retroarch.withCores (cores: with cores; [
       bsnes
       mupen64plus
