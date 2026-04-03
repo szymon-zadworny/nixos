@@ -47,6 +47,7 @@
       "rd.systemd.show_status=auto"
       "mitigations=off"
       "mem_sleep_default=deep"
+      "nvidia-drm.modeset=0"
     ];
 
     plymouth.enable = true;
@@ -225,6 +226,10 @@
       "nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI="
     ];
   };
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="drm", DRIVERS=="nvidia", TAG+="mutter-device-ignore"
+  '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
