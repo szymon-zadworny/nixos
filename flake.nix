@@ -14,6 +14,7 @@
   };
 
   outputs = inputs @ { self, nixpkgs, home-manager, firefox-gnome-theme, blender-bin, ... }: {
+    nixosModules.nvidia-power = import ./modules/nvidia-power.nix;
     nixosConfigurations.sajmon-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
@@ -23,6 +24,13 @@
       modules = [
         ({config, pkgs, ...}: { nixpkgs.overlays = [ blender-bin.overlays.default ]; })
         ./configuration.nix
+        self.nixosModules.nvidia-power
+          {
+            services.nvidiaPower = {
+                enable = true;
+                busId = "0000:01:00.0";
+            };
+          }
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

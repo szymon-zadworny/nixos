@@ -36,26 +36,6 @@
     # Use latest kernel.
     kernelPackages = pkgs.linuxPackages_latest;
 
-    # Disable Nvidia
-    extraModprobeConfig = ''
-      options nouveau modeset=0
-      install nvidia /bin/false
-    '';
-
-    blacklistedKernelModules = [
-      "nouveau"
-      "nvidia"
-      "nvidia_drm"
-      "nvidia_modeset"
-      "rivafb"
-      "nvidiafb"
-      "rivatv"
-      "nv"
-      "nvidia-uvm"
-      "ipmi_msghandler"
-      "ipmi_devintf"
-    ];
-
     # Enable "Silent boot"
     consoleLogLevel = 3;
     initrd.verbose = false;
@@ -131,7 +111,7 @@
     open = false;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     prime = {
