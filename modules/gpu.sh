@@ -24,7 +24,7 @@ unload_modules() {
 }
 
 load_modules() {
-  modprobe -i nvidia nvidia_uvm nvidia_modeset nvidia_drm
+  modprobe -a nvidia nvidia_uvm nvidia_modeset nvidia_drm
 }
 
 check_gpu_in_use() {
