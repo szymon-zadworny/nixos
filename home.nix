@@ -174,6 +174,7 @@
         octave = "octave --silent";
         gdb = "gdb -q";
         battery-status = "upower -i /org/freedesktop/UPower/devices/battery_BAT0";
+        gpu = "doas /run/current-system/sw/bin/gpu";
       };
 
       sessionVariables = {
