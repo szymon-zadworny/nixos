@@ -17,7 +17,7 @@
     dconf-editor
     gnome-tweaks
 
-    blender
+    blender_5_0
     krita
     gimp3
     godot
