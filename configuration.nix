@@ -266,7 +266,7 @@
      unzip
      steam-run
      (rizin.withPlugins (ps: with ps; [ jsdec rz-ghidra ]))
-     (cutter.withPlugins (ps: with ps; [ jsdec rz-ghidra ]))
+     # (cutter.withPlugins (ps: with ps; [ jsdec rz-ghidra ]))
 
      pipewire.jack
      ardour
