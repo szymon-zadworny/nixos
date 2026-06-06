@@ -62,8 +62,8 @@
     tokei
 
     wineWow64Packages.stagingFull
-    # lutris
-    # bottles
+    lutris
+    bottles
     (retroarch.withCores (cores: with cores; [
       bsnes
       mupen64plus
@@ -72,6 +72,8 @@
     ]))
     ppsspp-sdl-wayland
     melonds
+    pcsx2
+    flycast
 
     xonotic
     luanti
