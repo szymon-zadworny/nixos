@@ -307,6 +307,9 @@
 
   programs.nix-ld.enable = true;
 
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
   services.emacs = {
     enable = true;
     package = pkgs.emacs-pgtk;
