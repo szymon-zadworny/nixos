@@ -115,7 +115,7 @@
     open = true;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+  # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
@@ -181,6 +181,19 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+  };
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = [ "0b05:19b6:72b0430b" ];
+        settings = {
+          main = {
+            "leftshift+leftmeta+f23" = "layer(control)";
+          };
+        };
+      };
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
