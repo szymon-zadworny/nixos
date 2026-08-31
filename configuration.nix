@@ -42,12 +42,7 @@
     kernelParams = [
       "quiet"
       "splash"
-      "boot.shell_on_fail"
-      "udev.log_priority=3"
-      "rd.systemd.show_status=auto"
-      "mitigations=off"
-      "mem_sleep_default=deep"
-      "nvidia-drm.modeset=0"
+      "gpiolib_acpi.ignore_interrupt=AMDI0030:00@16"
     ];
 
     plymouth.enable = true;
@@ -85,23 +80,31 @@
     docker.enable = true;
   };
 
+  # Enable OpenGL
   hardware.graphics = {
     enable = true;
   };
 
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = [
+    "amdgpu"
+    "nvidia"
+  ];
+
   hardware.nvidia = {
+
     # Modesetting is required.
-    modesetting.enable = false;
+    modesetting.enable = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
     # of just the bare essentials.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
+    powerManagement.finegrained = true;
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).
@@ -109,35 +112,34 @@
     # supported GPUs is at: 
     # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
     # Only available from driver 515.43.04+
-    open = false;
+    open = true;
 
     # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
+	# accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+  
+  hardware.nvidia.prime = {
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
     };
+
+    # Make sure to use the correct Bus ID values for your system!
+    nvidiaBusId = "PCI:64:0:0";
+    amdgpuBusId = "PCI:65:0:0";
   };
 
   hardware.probe-rs.enable = true;
 
-  services.xserver.videoDrivers = [
-    "modesetting"
-    "nvidia"
-  ];
-
+  services.fwupd.enable = true;
   services.thermald.enable = true;
   services.tlp.enable = true;
   services.power-profiles-daemon.enable = false;
+  services.asusd.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -172,11 +174,6 @@
       # e.g. retains your NIX_PATH when applying your config
       keepEnv = true; 
     }
-    {
-      users = ["sajmon"];
-      cmd = "/run/current-system/sw/bin/gpu";
-      noPass = true;
-    }
   ];
 
   services.pipewire = {
@@ -184,31 +181,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-
-    wireplumber.extraConfig."99-stop-microphone-auto-adjust.conf" = {
-      "access.rules" = [
-        {
-          matches = [
-            { "application.process.binary" = "discord"; }
-            { "application.process.binary" = "vencord"; }
-            { "application.process.binary" = "vesktop"; }
-          ];
-          actions = {
-            update-props = {
-              default_permissions = "rx";
-            };
-          };
-        }
-      ];
-    };
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  systemd.tmpfiles.rules = [
-    "w /sys/bus/pci/devices/0000:01:00.0/power/control - - - - auto"
-  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sajmon = {
@@ -251,6 +224,7 @@
      htop
      tmux
      powertop
+     asusctl
      usbutils
      minicom
      mesa-demos

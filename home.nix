@@ -75,7 +75,6 @@
     pcsx2
     flycast
 
-    xonotic
     luanti
     airshipper
     prismlauncher
@@ -179,8 +178,7 @@
         cls = "clear && printf \'\\e[3J\'";
         octave = "octave --silent";
         gdb = "gdb -q";
-        battery-status = "upower -i /org/freedesktop/UPower/devices/battery_BAT0";
-        gpu = "doas /run/current-system/sw/bin/gpu";
+        battery-status = "upower -i /org/freedesktop/UPower/devices/battery_BAT1";
       };
 
       sessionVariables = {
