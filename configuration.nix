@@ -222,9 +222,9 @@
     ];
   };
 
-  services.udev.extraRules = ''
-    SUBSYSTEM=="drm", DRIVERS=="nvidia", TAG+="mutter-device-ignore"
-  '';
+  # services.udev.extraRules = ''
+  #   SUBSYSTEM=="drm", DRIVERS=="nvidia", TAG+="mutter-device-ignore"
+  # '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
