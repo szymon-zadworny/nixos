@@ -278,6 +278,86 @@
     ];
       };
     };
+
+    zed-editor = {
+      enable = true;
+      extensions = [
+        "toml"
+	"nix"
+      ];
+
+      userSettings = {
+        disable_ai = true;
+        bottom_dock_layout = "contained";
+        preview_tabs = {
+          enable_preview_file_from_code_navigation = true;
+          enable_preview_from_project_panel = true;
+          enabled = true;
+        };
+        tabs = {
+          git_status = false;
+        };
+        tab_bar = {
+          show = true;
+        };
+        title_bar = {
+          show_menus = false;
+          show_worktree_name = true;
+        };
+        project_panel = {
+          dock = "right";
+          button = true;
+        };
+        buffer_font_family = "Iosevka";
+        terminal = {
+          font_family = "Iosevka";
+        };
+        telemetry = {
+          diagnostics = false;
+          metrics = false;
+          anthropic_retention = false;
+        };
+        vim_mode = true;
+        base_keymap = "Emacs";
+        ui_font_size = 16;
+        buffer_font_size = 15;
+        theme = {
+          mode = "system";
+          light = "One Light";
+          dark = "One Dark";
+        };
+      };
+
+      userKeymaps = [
+        {
+          context = "Workspace";
+
+          bindings = {
+            # "shift shift" = "file_finder::Toggle";
+          };
+        }
+
+        {
+          context = "Editor && vim_mode == insert";
+
+          bindings = {
+            # "j k" = "vim::NormalBefore";
+          };
+        }
+
+        {
+          context = "Editor && !menu";
+
+          bindings = {
+            "ctrl-x 2" = "pane::SplitDown";
+            "ctrl-x 3" = "pane::SplitRight";
+            "ctrl-x o" = "workspace::ActivateNextPane";
+            "ctrl-x 0" = "pane::CloseActiveItem";
+            "ctrl-x 1" = "pane::CloseOtherItems";
+          };
+        }
+      ];
+    };
   };
 
   # Add Firefox GNOME theme directory
