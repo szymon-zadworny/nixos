@@ -379,6 +379,7 @@
           "editor.fontSize" = 16;
           "terminal.integrated.fontSize" = 16;
 
+          "workbench.startupEditor" = "none";
           "workbench.colorTheme" = "Tomorrow Night Blue";
           "window.autoDetectColorScheme" = true;
           "workbench.preferredDarkColorTheme" = "Tomorrow Night Blue";
