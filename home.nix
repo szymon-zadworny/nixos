@@ -387,6 +387,7 @@
           "vim.useCtrlKeys" = true;
           "vim.handleKeys" = {
             "<C-x>" = false;
+            "<C-g>" = false;
           };
 
           "files.insertFinalNewline" = true;
@@ -496,6 +497,30 @@
             key = "ctrl+down";
             command = "workbench.action.focusBelowGroup";
             when = "editorTextFocus || terminalFocus";
+          }
+
+          {
+            key = "ctrl+g";
+            command = "workbench.action.closeQuickOpen";
+            when = "inQuickOpen";
+          }
+
+          {
+            key = "ctrl+g";
+            command = "closeFindWidget";
+            when = "findWidgetVisible";
+          }
+
+          {
+            key = "ctrl+g";
+            command = "extension.vim_escape";
+            when = "vim.active && vim.mode == 'CommandlineInProgress'";
+          }
+
+          {
+            key = "ctrl+g";
+            command = "extension.vim_escape";
+            when = "vim.active && vim.mode == 'SearchInProgressMode'";
           }
         ];
       };
