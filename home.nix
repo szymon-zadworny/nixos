@@ -358,6 +358,18 @@
         }
       ];
     };
+
+    vscodium = {
+      enable = true;
+      profiles.default = {
+        extensions = with pkgs.vscode-extensions [
+	  vscodevim.vim
+	  mkhl.direnv
+	  jnoortheen.nix-ide
+	  rust-lang.rust-analyzer
+	];
+      };
+    };
   };
 
   # Add Firefox GNOME theme directory
