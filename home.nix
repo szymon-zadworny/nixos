@@ -86,6 +86,10 @@
     osu-lazer
 
     musescore
+
+    (llama-cpp.override {
+      cudaSupport = true;
+    })
   ];
 
   fonts.fontconfig.enable = true;
