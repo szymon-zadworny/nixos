@@ -2,15 +2,20 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, forcedSystem, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  forcedSystem,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.probe-rs-rules.nixosModules.${forcedSystem}.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.probe-rs-rules.nixosModules.${forcedSystem}.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nix.optimise.automatic = true;
 
@@ -69,7 +74,7 @@
   };
 
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["sajmon"];
+  users.groups.libvirtd.members = [ "sajmon" ];
 
   virtualisation = {
     libvirtd = {
@@ -98,7 +103,7 @@
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
     powerManagement.enable = true;
 
@@ -108,20 +113,20 @@
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Support is limited to the Turing and later architectures. Full list of
+    # supported GPUs is at:
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
     # Only available from driver 515.43.04+
     open = true;
 
     # Enable the Nvidia settings menu,
-  # accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-  
+
   hardware.nvidia.prime = {
     offload = {
       enable = true;
@@ -169,10 +174,10 @@
   security.sudo.enable = false;
   security.doas.extraRules = [
     {
-      users = ["sajmon"];
-      # Optional, retains environment variables while running commands 
+      users = [ "sajmon" ];
+      # Optional, retains environment variables while running commands
       # e.g. retains your NIX_PATH when applying your config
-      keepEnv = true; 
+      keepEnv = true;
     }
   ];
 
@@ -200,7 +205,10 @@
   users.users.sajmon = {
     isNormalUser = true;
     description = "Szymon Zadworny";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   # Allow unfree packages
@@ -209,7 +217,10 @@
   };
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
@@ -231,43 +242,48 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     man-pages
-     man-pages-posix
+    man-pages
+    man-pages-posix
 
-     neovim
-     wget
-     htop
-     tmux
-     powertop
-     asusctl
-     usbutils
-     minicom
-     mesa-demos
-     rustup
-     gcc_latest
-     llvm
-     clang
-     clang-tools
-     gdb
-     lldb
-     cudaPackages.cudatoolkit
-     doas-sudo-shim
-     unzip
-     steam-run
-     (rizin.withPlugins (ps: with ps; [ jsdec rz-ghidra ]))
-     # (cutter.withPlugins (ps: with ps; [ jsdec rz-ghidra ]))
+    neovim
+    wget
+    htop
+    tmux
+    powertop
+    asusctl
+    usbutils
+    minicom
+    mesa-demos
+    rustup
+    gcc_latest
+    llvm
+    clang
+    clang-tools
+    gdb
+    lldb
+    cudaPackages.cudatoolkit
+    doas-sudo-shim
+    unzip
+    steam-run
+    (rizin.withPlugins (
+      ps: with ps; [
+        jsdec
+        rz-ghidra
+      ]
+    ))
+    # (cutter.withPlugins (ps: with ps; [ jsdec rz-ghidra ]))
 
-     pipewire.jack
-     ardour
-     dexed
-     vital
-     calf
-     zynaddsubfx
-     sfizz
-     surge-xt
-     drumgizmo
-     odin2
-     dragonfly-reverb
+    pipewire.jack
+    ardour
+    dexed
+    vital
+    calf
+    zynaddsubfx
+    sfizz
+    surge-xt
+    drumgizmo
+    odin2
+    dragonfly-reverb
   ];
 
   xdg.portal.enable = true;
