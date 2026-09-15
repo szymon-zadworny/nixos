@@ -47,6 +47,9 @@
     blackbox-terminal
     transmission_4-gtk
 
+    nixd
+    nixfmt
+
     radare2
     ghidra-bin
 
@@ -362,12 +365,137 @@
     vscodium = {
       enable = true;
       profiles.default = {
-        extensions = with pkgs.vscode-extensions [
-	  vscodevim.vim
-	  mkhl.direnv
-	  jnoortheen.nix-ide
-	  rust-lang.rust-analyzer
-	];
+        extensions = with pkgs.vscode-extensions; [
+          vscodevim.vim
+          mkhl.direnv
+          jnoortheen.nix-ide
+          rust-lang.rust-analyzer
+        ];
+
+        userSettings = {
+          "editor.fontFamily" = "'Iosevka'";
+          "editor.fontSize" = 16;
+          "terminal.integrated.fontSize" = 16;
+
+          "workbench.colorTheme" = "Tomorrow Night Blue";
+          "window.autoDetectColorScheme" = true;
+          "workbench.preferredDarkColorTheme" = "Tomorrow Night Blue";
+
+          "vim.useSystemClipboard" = true;
+          "vim.useCtrlKeys" = true;
+          "vim.handleKeys" = {
+            "<C-x>" = false;
+          };
+
+          "files.insertFinalNewline" = true;
+          "notebook.insertFinalNewline" = true;
+
+          "editor.rulers" = [
+            100
+          ];
+
+          "window.newWindowDimensions" = "fullscreen";
+          "window.restoreFullscreen" = true;
+
+          "workbench.activityBar.location" = "hidden";
+
+          "security.workspace.trust.untrustedFiles" = "open";
+
+          "editor.minimap.enabled" = false;
+          "breadcrumbs.enabled" = false;
+          "editor.codeLens" = false;
+          "editor.inlayHints.enabled" = "off";
+          "terminal.integrated.initialHint" = false;
+          "terminal.integrated.commandsToSkipShell" = [
+            "workbench.action.focusLeftGroup"
+            "workbench.action.focusRightGroup"
+            "workbench.action.focusAboveGroup"
+            "workbench.action.focusBelowGroup"
+          ];
+
+          "editor.stickyScroll.enabled" = false;
+          "zenMode.hideStatusBar" = false;
+          "zenMode.hideLineNumbers" = false;
+
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nixd";
+        };
+
+        keybindings = [
+          {
+            key = "ctrl+x 2";
+            command = "workbench.action.splitEditorDown";
+          }
+
+          {
+            key = "ctrl+x 3";
+            command = "workbench.action.splitEditorRight";
+          }
+
+          {
+            key = "ctrl+x o";
+            command = "workbench.action.navigateEditorGroups";
+          }
+
+          {
+            key = "ctrl+x 0";
+            command = "workbench.action.closeEditorsAndGroup";
+          }
+
+          {
+            key = "ctrl+x 1";
+            command = "workbench.action.joinAllGroups";
+          }
+
+          {
+            key = "ctrl+x k";
+            command = "workbench.action.closeActiveEditor";
+          }
+
+          {
+            key = "ctrl+x ctrl+f";
+            command = "workbench.action.quickOpen";
+          }
+
+          {
+            key = "ctrl+x ctrl+c";
+            command = "workbench.action.closeWindow";
+          }
+
+          {
+            key = "ctrl+x b";
+            command = "workbench.action.showAllEditors";
+          }
+
+          {
+            key = "alt+x";
+            command = "workbench.action.showCommands";
+          }
+
+          {
+            key = "ctrl+left";
+            command = "workbench.action.focusLeftGroup";
+            when = "editorTextFocus || terminalFocus";
+          }
+
+          {
+            key = "ctrl+right";
+            command = "workbench.action.focusRightGroup";
+            when = "editorTextFocus || terminalFocus";
+          }
+
+          {
+            key = "ctrl+up";
+            command = "workbench.action.focusAboveGroup";
+            when = "editorTextFocus || terminalFocus";
+          }
+
+          {
+            key = "ctrl+down";
+            command = "workbench.action.focusBelowGroup";
+            when = "editorTextFocus || terminalFocus";
+          }
+        ];
       };
     };
   };
