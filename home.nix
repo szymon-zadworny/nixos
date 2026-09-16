@@ -476,6 +476,11 @@
           }
 
           {
+            key = "ctrl+x ctrl+b";
+            command = "workbench.action.showAllEditors";
+          }
+
+          {
             key = "alt+x";
             command = "workbench.action.showCommands";
           }
