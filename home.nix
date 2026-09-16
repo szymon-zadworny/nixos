@@ -376,6 +376,7 @@
           mkhl.direnv
           jnoortheen.nix-ide
           rust-lang.rust-analyzer
+          shd101wyy.markdown-preview-enhanced
         ];
 
         userSettings = {
