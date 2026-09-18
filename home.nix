@@ -216,6 +216,25 @@
       };
     };
 
+    librewolf = {
+      enable = true;
+      enableGnomeExtensions = true;
+
+      profiles.default = {
+        name = "Default";
+        settings = {
+          # For Firefox GNOME theme:
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+          "browser.tabs.drawInTitlebar" = true;
+          "svg.context-properties.content.enabled" = true;
+        };
+        userChrome = ''
+          @import "firefox-gnome-theme/userChrome.css";
+          @import "firefox-gnome-theme/theme/colors/dark.css"; 
+        '';
+      };
+    };
+
     chromium = {
       enable = true;
       commandLineArgs = [
@@ -541,6 +560,12 @@
   # Add Firefox GNOME theme directory
   home.file."firefox-gnome-theme" = {
     target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
+    source = firefox-gnome-theme;
+  };
+
+  # Add Firefox GNOME theme directory
+  home.file."librewolf-gnome-theme" = {
+    target = ".librewolf/default/chrome/firefox-gnome-theme";
     source = firefox-gnome-theme;
   };
 
