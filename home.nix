@@ -391,6 +391,7 @@
       enable = true;
       profiles.default = {
         extensions = with pkgs.vscode-extensions; [
+          ms-vscode-remote.remote-ssh
           vscodevim.vim
           mkhl.direnv
           jnoortheen.nix-ide
