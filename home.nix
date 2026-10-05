@@ -78,6 +78,7 @@
     ppsspp-sdl-wayland
     melonds
     pcsx2
+    rpcs3
     flycast
 
     luanti
