@@ -85,6 +85,7 @@
     airshipper
     prismlauncher
     osu-lazer
+    factorio
 
     musescore
 
