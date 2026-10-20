@@ -220,7 +220,6 @@
 
     librewolf = {
       enable = true;
-      enableGnomeExtensions = true;
 
       profiles.default = {
         name = "Default";
