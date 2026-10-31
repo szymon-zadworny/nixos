@@ -1,10 +1,10 @@
-{ pkgs, firefox-gnome-theme, ... }: {
+{ config, pkgs, firefox-gnome-theme, ... }: {
   home.packages = with pkgs; [
     gnomeExtensions.blur-my-shell
     gnomeExtensions.hide-top-bar
     gnomeExtensions.gsconnect
     gnomeExtensions.appindicator
-    gnomeExtensions.wiggle
+    gnomeExtensions.wiggly
     gnomeExtensions.caffeine
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.tiling-assistant
@@ -85,7 +85,7 @@
     airshipper
     prismlauncher
     osu-lazer
-    factorio
+    # factorio
 
     musescore
 
@@ -98,7 +98,10 @@
 
   xdg = {
     enable = true;
-    userDirs.enable = true;
+    userDirs = {
+      enable = true;
+      setSessionVariables = false;
+    };
     systemDirs.data = [
       "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
@@ -202,6 +205,7 @@
 
     firefox = {
       enable = true;
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
 
       profiles.default = {
         name = "Default";

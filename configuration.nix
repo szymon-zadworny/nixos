@@ -27,8 +27,10 @@
 
   documentation = {
     enable = true;
-    man.enable = true;
-    man.generateCaches = true;
+    man = {
+      enable = true;
+      cache.enable = true;
+    };
     dev.enable = true;
   };
 
@@ -43,7 +45,6 @@
 
     # Enable "Silent boot"
     consoleLogLevel = 3;
-    initrd.verbose = false;
     kernelParams = [
       "quiet"
       "splash"
